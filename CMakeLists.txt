@@ -78,6 +78,7 @@ endif (EXISTS ${LOCAL_GIT_DIRECTORY})
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
 option(BUILD_TESTING "Enable testing" ON)
+option(BUILD_APPS "Build applications" ON)
 option(BUILD_DOCUMENTATION "Build html User's Guide" OFF)
 
 enable_testing()
@@ -262,8 +263,14 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(OptimizeTheiaCompilerFlags)
 optimizetheiacompilerflags()
 
+
 add_subdirectory(src/theia)
-add_subdirectory(applications)
+
+if (BUILD_APPS)
+  message("-- Application building is enabled")
+  add_subdirectory(applications)
+endif (BUILD_APPS)
+
 
 if (BUILD_DOCUMENTATION)
   message("-- Documentation building is enabled")
